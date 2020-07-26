@@ -17,7 +17,9 @@ loc : 행단위 데이터 읽기 (인덱스 값 기준)
 """
 m = data['vote_count'].quantile(0.9)
 print("vote_count = " + str(m))
-data = data.copy().loc[data['vote_count'] >= m]
+data = data.loc[data['vote_count'] >= m]
+#index번호 초기화
+data = data.reset_index()[['genres', 'id', 'popularity', 'title', 'vote_average', 'vote_count']]
 print("data = " + str(data.shape))
 print(data.head())
 
@@ -70,7 +72,6 @@ print(genre_c_sim.shape)
 
 def get_recommend_movie_list(df, movie_title, top=30):
     target_movie_index = df[df['title'] == movie_title].index.values
-
     #reshape : 기존 데이터 유지, 차원과 형상을 변경 (-1: 자동)
     sim_index = genre_c_sim[target_movie_index, :top].reshape(-1)
     sim_index = sim_index[sim_index != target_movie_index]
@@ -81,7 +82,6 @@ def get_recommend_movie_list(df, movie_title, top=30):
     return result
 print('====')
 
-# index 오류?
-# print(get_recommend_movie_list(data, movie_title = 'The Dark Knight Rises'))
+print(get_recommend_movie_list(data, movie_title = 'The Dark Knight Rises'))
 
 print(data[data['title'] == 'The Dark Knight Rises'])

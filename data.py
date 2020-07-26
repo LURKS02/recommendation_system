@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 data = pd.read_csv('./movies_metadata.csv')
 
-data = data[['genres', 'id', 'popularity', 'title', 'vote_average', 'vote_count']]
+data = data[['id', 'genres', 'popularity', 'title', 'vote_average', 'vote_count']]
 print(data)
 print(data.head(2))
 print(data.shape)
@@ -19,7 +19,7 @@ m = data['vote_count'].quantile(0.9)
 print("vote_count = " + str(m))
 data = data.loc[data['vote_count'] >= m]
 #index번호 초기화
-data = data.reset_index()[['genres', 'id', 'popularity', 'title', 'vote_average', 'vote_count']]
+data = data.reset_index()[['id', 'genres', 'popularity', 'title', 'vote_average', 'vote_count']]
 print("data = " + str(data.shape))
 print(data.head())
 

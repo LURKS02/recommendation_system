@@ -49,7 +49,7 @@ data['genres'] = data['genres'].apply(lambda x : [d['name'] for d in x]).apply(l
 print(data.head(2))
 
 #아랫줄로 필터링한 데이터를 파일에 저장
-#data.to_csv('./movies_metadata.csv', index = False)
+data.to_csv('./movies_metadata.csv', index = False)
 
 #비슷한 콘텐츠를 추천 (ex. 장르)
 

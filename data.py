@@ -73,9 +73,10 @@ def data_recommend(movieName):
         result = df.iloc[sim_index].sort_values('score', ascending = False)[:10] #역순정렬
         return result
 
+    print(data[data['title'] == 'The Dark Knight Rises'])
     return(get_recommend_movie_list(data, movie_title = movieName))
 
-    #print(data[data['title'] == 'The Dark Knight Rises'])
+    print(data[data['title'] == 'The Dark Knight Rises'])
 
 def data_recommend_title(movieName):
     movieTitleList = []
@@ -83,3 +84,7 @@ def data_recommend_title(movieName):
     for i in range(10) :
         movieTitleList.append(data.iloc[i]['title'])
     return movieTitleList
+
+def movie_info(recommend_title, base_title):
+    data = data_recommend(base_title)
+    return data[data['title'] == recommend_title]

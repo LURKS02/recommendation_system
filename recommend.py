@@ -52,14 +52,18 @@ print(corr2.shape)
 plt.figure(figsize = (16,10))
 print(sns.heatmap(corr2))
 
+print("Choose Movie")
+sel_mov = input()
+
 movie_title = user_movie_rating.columns
 movie_title_list = list(movie_title)
-coffey_hands = movie_title_list.index("Guardians of the Galaxy (2014)")
+#coffey_hands = movie_title_list.index("Guardians of the Galaxy (2014)")
+coffey_hands = movie_title_list.index(sel_mov)
 
 corr_coffey_hands = corr[coffey_hands]
-list(movie_title[(corr_coffey_hands >= 0.9)])[:50]
+print(list(movie_title[(corr_coffey_hands >= 0.9)])[:50])
 
-
+#=============================================================================
 
 df_ratings = pd.read_csv('./ratings.csv')
 df_movies = pd.read_csv('./movies.csv')
@@ -107,7 +111,7 @@ def recommend_movies(df_svd_preds, user_id, ori_movies_df, ori_ratings_df, num_r
 	user_data = ori_ratings_df[ori_ratings_df.userId == user_id]
 	user_history = user_data.merge(ori_movies_df, on = 'movieId').sort_values(['rating'], ascending=False)
 	recommendations = ori_movies_df[~ori_movies_df['movieId'].isin(user_history['movieId'])]
-	recommendations = recommendations.merge( pd.DataFrame(sorted_user_predictions).reset_index(), on = 'movieId')
+	recommendations = recommendations.merge(pd.DataFrame(sorted_user_predictions).reset_index(), on = 'movieId')
 	recommendations = recommendations.rename(columns = {user_row_number: 'Predictions'}).sort_values('Predictions', ascending = False).iloc[:num_recommendations, :]
 
 	return user_history, recommendations

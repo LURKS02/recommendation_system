@@ -1,5 +1,5 @@
 from tkinter import *
-
+import webbrowser
 from data import *
 
 win = Tk()
@@ -41,9 +41,10 @@ def movieInfo(event):
     subWin = Tk()
     subWin.geometry("600x440")
     subWin.title("movie information")
-    movieURL =
     subWinLab01 = Label(subWin, text = "<Movie Information>", font = "맑은고딕 10")
     selectedInfo = movie_info(selected, movieEnt.get())
+    movieURL = "https://www.imdb.com/title/" + selectedInfo.iloc[0]['imdb_id']
+
     subWinLab02 = Label(subWin, text = "id : " + selectedInfo.iloc[0]['id'])
     subWinLab03 = Label(subWin, text = "title : " + selectedInfo.iloc[0]['title'])
     subWinLab04 = Label(subWin, text = "genres : " + selectedInfo.iloc[0]['genres'])
@@ -54,6 +55,12 @@ def movieInfo(event):
     subWinLab09 = Label(subWin, text = "overview : " + selectedInfo.iloc[0]["overview"])
     subWinLab10 = Label(subWin, text = selectedInfo.iloc[0]["tagline"], font = "Courier 11")
     subWinLab11 = Label(subWin, text = selectedInfo.iloc[0]["title"], font = "Times 17")
+
+    def callback(url):
+        webbrowser.open_new(url)
+
+    subWinLab12 = Label(subWin, text = movieURL, fg="blue", cursor="hand2")
+    subWinLab12.bind("<Button-1>", lambda e: callback(movieURL))
     subWinLab10.config(wraplength=400)
     subWinLab09.config(wraplength=400)
     subWinLab10.config(height = 2)
@@ -72,6 +79,7 @@ def movieInfo(event):
     subWinLab06.pack()
     subWinLab07.pack()
     subWinLab08.pack()
+    subWinLab12.pack()
 
 movieListBox.bind('<Double-Button-1>',movieInfo)
 recommendBtn.pack()

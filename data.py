@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 def data_recommend(movieName):
     data = pd.read_csv('./movies_metadata.csv')
 
-    data = data[['id', 'genres', 'popularity', 'title', 'vote_average', 'vote_count']]
+    data = data[['id', 'genres', 'popularity', 'overview', 'title', 'tagline', 'vote_average', 'vote_count']]
 
     """ 백분위수 구하기
     quantile : 해당 백분위에 해당하는 값 (vote_count)
@@ -16,7 +16,7 @@ def data_recommend(movieName):
     m = data['vote_count'].quantile(0.9)
     data = data.loc[data['vote_count'] >= m]
     #index번호 초기화
-    data = data.reset_index()[['id', 'genres', 'popularity', 'title', 'vote_average', 'vote_count']]
+    data = data.reset_index()[['id', 'genres', 'popularity', 'overview', 'title', 'tagline', 'vote_average', 'vote_count']]
 
     #평균 구하기
     C = data['vote_average'].mean()
@@ -75,8 +75,6 @@ def data_recommend(movieName):
 
     print(data[data['title'] == 'The Dark Knight Rises'])
     return(get_recommend_movie_list(data, movie_title = movieName))
-
-    print(data[data['title'] == 'The Dark Knight Rises'])
 
 def data_recommend_title(movieName):
     movieTitleList = []

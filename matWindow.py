@@ -12,10 +12,10 @@ def matWindow():
 	matLab.pack()
 
 	movieEnt = Entry(win, width = 30)
-	movieEnt.insert(0, "영화 제목을 입력하세요.")
+	movieEnt.insert(0, "아이디를 입력하세요.")
 
 	def clear(event):
-		if movieEnt.get() == "영화 제목을 입력하세요.":
+		if movieEnt.get() == "아이디를 입력하세요.":
 			movieEnt.delete(0, len(movieEnt.get()))
 
 	movieEnt.pack()
@@ -29,8 +29,8 @@ def matWindow():
 	movieListBox.pack()
 
 	def ent_p():
-		movieName = movieEnt.get()
-		movieList = mat_recommend(movieName)
+		input_id = movieEnt.get()
+		movieList = mat_recommend_title(input_id)
 		movieListBox.delete(0,9)
 		i = 1
 		for title in movieList:
@@ -39,50 +39,6 @@ def matWindow():
 
 	recommendBtn.config(command = ent_p)
 
-	def movieInfo(event):
-	        selected = movieListBox.selection_get()
-	        subWin = Tk()
-	        subWin.geometry("600x440")
-	        subWin.title("movie information")
-	        subWinLab01 = Label(subWin, text = "<Movie Information>", font = "맑은고딕 10")
-	        selectedInfo = movie_info(selected, movieEnt.get())
-	        movieURL = "https://www.imdb.com/title/" + selectedInfo.iloc[0]['imdb_id']
-
-	        subWinLab02 = Label(subWin, text = "id : " + selectedInfo.iloc[0]['id'])
-	        subWinLab03 = Label(subWin, text = "title : " + selectedInfo.iloc[0]['title'])
-	        subWinLab04 = Label(subWin, text = "genres : " + selectedInfo.iloc[0]['genres'])
-	        subWinLab05 = Label(subWin, text = "popularity : " + str(selectedInfo.iloc[0]['popularity']))
-	        subWinLab06 = Label(subWin, text = "vote_average : " + str(selectedInfo.iloc[0]["vote_average"]))
-	        subWinLab07 = Label(subWin, text = "vote_count : " + str(selectedInfo.iloc[0]["vote_count"]))
-	        subWinLab08 = Label(subWin, text = "score : " + str(selectedInfo.iloc[0]["score"]))
-	        subWinLab09 = Label(subWin, text = "overview : " + selectedInfo.iloc[0]["overview"])
-	        subWinLab10 = Label(subWin, text = selectedInfo.iloc[0]["tagline"], font = "Courier 11")
-	        subWinLab11 = Label(subWin, text = selectedInfo.iloc[0]["title"], font = "Times 17")
-	        
-	        def callback(url):
-	        	webbrower.open_new(url)
-	        	
-	        subWinLab12 = Label(subWin, text = movieURL, fg = "blue", cursor = "hand2")
-	        subWinLab12.bind("<Button-1>", lambda e: callback(movieURL))
-	        subwinLab10.config(wraplength=400)
-	        subWinLab09.config(wraplength=400)
-	        subWinLab10.config(height = 2)
-	        subWinLab09.config(height = 2)
-	        
-	        subWinLab01.pack()
-	        subWinLab02.pack()
-	        subWinLab03.pack()
-	        subWinLab04.pack()
-	        subWinLab05.pack()
-	        subWinLab06.pack()
-	        subWinLab07.pack()
-	        subWinLab08.pack()
-	        subWinLab09.pack()
-	        subWinLab10.pack()
-	        subWinLab11.pack()
-	        subWinLab12.pack()
-
-	movieListBox.bind('<Double-Button-1>',movieInfo)
 	recommendBtn.pack()
 	
 	win.mainloop()

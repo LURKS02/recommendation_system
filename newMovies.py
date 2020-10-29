@@ -1,35 +1,31 @@
 from tkinter import *
-from CGVcrawling import *
-from LOTTEcrawling import *
-from MEGAcrawling import *
+import requests
 
+requests.packages.urllib3.disable_warnings()
+requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!DH:!aNULL'
+try:
+    requests.packages.urllib3.contrib.pyopenssl.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!DH:!aNULL'
+except AttributeError:
+    # no pyopenssl support used / needed / available
+    pass
+    
 def newMovies() :
 	win = Tk()
 	win.geometry("700x500")
 	win.title("recommend new movies")
 	win.option_add("*Font", "40")
 
-	dataLab = Label(win, text = "recommend new movies", height = 2)
-	dataLab.pack()
+	req = requests.get('https://cgv.co.kr/movies/')
+	html = req.text
+	soup = BeautifulSoup(html, 'html.parser')
 
-	BtCGV = Button(win, text = "CGV", width = 20, heigth = 5)
-	BtLOT = Button(win, text = "LOTTE CINEMA", width = 20, height = 5)
-	BtMEG = Button(win, text = "MEGA BOX", widht = 20, height = 5)
+	my_titles = soup.select(
+		'ol > li > div.box-contents > a > strong.title'
+		)
 
-	def movieCGV():
-		CGVcrawling()
+	data = {}
 
-	def movieLOT():
-		LOTTEcrawling()
-
-	def movieMEG():
-		MEGAcrawling()
-
-	BtCGV.config(commend = movieCGV)
-	BtCGV.pack()
-	BtLOT.config(commend = movieLOT)
-	BtLOT.pack()
-	BtMEG.config(commend = movieMEG)
-	BtMEG.pack()
-
+	for title in my_titles:
+		print(title.text)
+	
 	win.mainloop()

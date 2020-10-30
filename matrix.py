@@ -70,7 +70,7 @@ def mat_recommend(input_id):
 		return user_history, recommendations
 	
 	already_rated, predictions = recommend_movies(df_svd_preds, input_id, df_movies, df_ratings, 10)
-	return already_rated
+	return predictions
 	
 def mat_recommend_title(input_id):
 	movieTitleList = []

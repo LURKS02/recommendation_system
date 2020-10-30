@@ -27,6 +27,8 @@ def dataWindow() :
     movieListBox.config(width = 50, height = 20)
     movieListBox.pack()
 
+    # 입력창에 입력된 영화 제목을 토대로
+    # title에 대한 영화 추천 함수를 실행하여 영화 리스트를 받아옴
     def ent_p():
         movieName = movieEnt.get()
         movieList = data_recommend_title(movieName)
@@ -38,6 +40,8 @@ def dataWindow() :
 
     recommendBtn.config(command = ent_p)
 
+    # 추천된 영화 리스트의 각 영화에 대한 상세보기 창을 구현
+    # dataset에서 해당 영화에 관련된 정보를 추출하여 표시함
     def movieInfo(event):
         selected = movieListBox.selection_get()
         subWin = Tk()

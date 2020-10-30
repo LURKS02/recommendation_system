@@ -7,6 +7,7 @@ from urllib.request import urlopen
 import base64
 from functools import partial
 
+# url에서 이미지 정보를 받아오는 과정
 def imgCrawling(url):
     u = urlopen(url)
     raw_data = u.read()
@@ -16,6 +17,8 @@ def imgCrawling(url):
     im = im.resize((350, 500))
     return im
 
+
+# movie chart의 영화 상세보기 창 구현
 def chartInfo(title, reservation, poster, date):
     subWin = Tk()
     subWin.geometry("600x660")
@@ -35,6 +38,8 @@ def chartInfo(title, reservation, poster, date):
     subWinLab05.pack()
     subWin.mainloop()
 
+# 웹 크롤링을 통해 받아온 정보는 class 형태로 classList에 저장
+# 각 요소에 대해 버튼을 생성하고 class정보를 받아와 chartInfo의 인수로 넘겨줌
 def chartWindow():
     chartWin = Tk()
     chartWin.geometry("1400x1000+100+100")

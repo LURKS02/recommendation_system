@@ -41,13 +41,13 @@ def dataWindow() :
     def movieInfo(event):
         selected = movieListBox.selection_get()
         subWin = Tk()
-        subWin.geometry("600x700")
+        subWin.geometry("600x420")
         subWin.title("movie information")
         subWinLab01 = Label(subWin, text = "<Movie Information>", font = "맑은고딕 10")
         selectedInfo = movie_info(selected, movieEnt.get())
         movieURL = "https://www.imdb.com/title/" + selectedInfo.iloc[0]['imdb_id']
 
-        subWinLab02 = Button(subWin, text = "id : " + selectedInfo.iloc[0]['id'])
+        subWinLab02 = Label(subWin, text = "id : " + selectedInfo.iloc[0]['id'])
         subWinLab03 = Label(subWin, text = "title : " + selectedInfo.iloc[0]['title'])
         subWinLab04 = Label(subWin, text = "genres : " + selectedInfo.iloc[0]['genres'])
         subWinLab05 = Label(subWin, text = "popularity : " + str(selectedInfo.iloc[0]['popularity']))

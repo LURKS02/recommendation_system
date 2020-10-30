@@ -14,6 +14,8 @@ class movieInfo :
         self.poster = poster
         self.date = date
 
+# CGV 영화 차트 홈페이지에서 크롤링을 진행
+# 영화 제목, 예매율, 포스터, 개봉일자 정보를 받아옴
 def crawling() :
     requests.packages.urllib3.disable_warnings()
     requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!DH:!aNULL'
